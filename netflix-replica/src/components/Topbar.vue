@@ -16,7 +16,7 @@
             </div>
             <h1 class="logo">Metflix</h1>
             <button class="sign-in-btn">Sign-in</button>
-            <button class="log-in-btn">Log-in</button>
+            <RouterLink to="/login" class="log-in-btn">Login</RouterLink>
         </div>
 </template>
 
@@ -41,6 +41,7 @@
         font-size: 16px;
         border: none;
         z-index: 1;
+        text-decoration: none;
     }
 
     .sidebar-content {
