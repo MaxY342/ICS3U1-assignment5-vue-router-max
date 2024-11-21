@@ -101,9 +101,5 @@
     p {
         margin: 0;
     }
-
-    * :not(h1) {
-        transition: opacity 1s ease;
-    }
 </style>
 

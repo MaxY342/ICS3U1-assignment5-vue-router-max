@@ -7,15 +7,15 @@
             <div class="sidebar">
                 <button class = sidebarbtn>Menu</button>
                 <div class="sidebar-content">
-                    <a href="/templates/index.html">Homepage</a>
+                    <RouterLink to="/">Homepage</RouterLink>
                     <a>Subscription Plans</a>
-                    <a href="/templates/trending.html">Trending</a>
+                    <a>Trending</a>
                     <a>Most Popular</a>
                     <a>New</a>
                 </div>
             </div>
             <h1 class="logo">Metflix</h1>
-            <button class="sign-in-btn">Sign-in</button>
+            <RouterLink to="/signup" class="sign-up-btn">Sign-up</RouterLink>
             <RouterLink to="/login" class="log-in-btn">Login</RouterLink>
         </div>
 </template>
@@ -30,11 +30,11 @@
         align-items: center;
     }
 
-    .sign-in-btn {
+    .sign-up-btn {
         grid-column: 4/4;
     }
 
-    .sidebarbtn, .sign-in-btn, .log-in-btn {
+    .sidebarbtn, .sign-up-btn, .log-in-btn {
         background-color: #191919;
         color: white;
         padding: 10px;
@@ -60,6 +60,7 @@
     .sidebar-content a {
         color: white;
         padding: 18px 16px;
+        text-decoration: none;
     }
 
     .sidebar:hover .sidebar-content {
@@ -74,7 +75,7 @@
         to {width: 300px;}
     }
 
-    .sidebarbtn:hover, .sign-in-btn:hover, .log-in-btn:hover {
+    .sidebarbtn:hover, .sign-up-btn:hover, .log-in-btn:hover {
         background-color: #353535
     }
 

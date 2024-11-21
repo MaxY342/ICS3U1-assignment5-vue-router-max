@@ -32,9 +32,5 @@
         grid-template-columns: auto auto auto;
         justify-items: center;
     }
-    
-    * :not(h1) {
-        transition: opacity 1s ease;
-    }
 </style>
 

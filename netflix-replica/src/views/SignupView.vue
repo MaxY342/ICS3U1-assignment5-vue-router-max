@@ -1,13 +1,13 @@
 <script setup>
-import Login from '../components/Login.vue'
+import Signup from '../components/Signup.vue'
 import Topbar from '../components/Topbar.vue';
 </script>
 
 <template>
   <main>
     <Topbar />
-    <div class="login-container">
-      <Login class="login" />
+    <div class="signup-container">
+      <Signup class="signup" />
     </div>
   </main>
 </template>
@@ -19,14 +19,14 @@ import Topbar from '../components/Topbar.vue';
     min-height: 100vh;
   }
 
-  .login-container {
+  .signup-container {
     display: grid;
     justify-content: center;
     align-items: center;
     background-color: #2f2f2f;
   }
 
-  .login {
+  .signup {
     background-color: #151515;
   }
 </style>

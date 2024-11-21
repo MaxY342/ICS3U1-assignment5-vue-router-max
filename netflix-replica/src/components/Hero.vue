@@ -27,10 +27,6 @@
         transition: opacity 1s ease;
     }
 
-    * :not(h1) {
-        transition: opacity 1s ease;
-    }
-
     .hero {
         color: white;
         font-size: 10vh;
