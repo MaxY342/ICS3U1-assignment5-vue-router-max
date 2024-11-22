@@ -25,8 +25,8 @@ const router = createRouter({
     {
       path: '/home',
       name: 'home',
-      component: HomeView.vue,
-    }
+      component: HomeView,
+    },
   ],
 })
 

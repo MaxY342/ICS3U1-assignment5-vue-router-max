@@ -1,14 +1,26 @@
 <script setup>
+import { RouterLink, useRouter } from 'vue-router';
+import { ref } from 'vue';
 
+const router = useRouter();
+const password = ref('');
+
+const handleLogin = () => {
+  if (password.value === "yes") {
+    router.push("/home");
+  } else {
+    alert("Invalid Password");
+  }
+};
 </script>
 
 <template>
-    <form class="login">
+    <form class="login" @submit.prevent="handleLogin">
         <label>Username/Email</label>
         <input>
         <label>Password</label>
-        <input>
-        <button>Log-in</button>
+        <input v-model="password">
+        <button type="submit">Log-in</button>
     </form>
 </template>
 
