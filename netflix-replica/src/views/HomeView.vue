@@ -1,12 +1,14 @@
 <script setup>
 import Topbar from '../components/Topbar.vue'
-import Trending from '../components/Trending.vue'
+import MovieLists from '../components/MovieLists.vue'
+import Search from '../components/Search.vue'
 
 </script>
 
 <template>
   <main>
     <Topbar />
-    <Trending />
+    <Search />
+    <MovieLists />
   </main>
 </template>
