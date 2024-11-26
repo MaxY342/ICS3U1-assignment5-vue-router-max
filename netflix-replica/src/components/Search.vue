@@ -7,6 +7,10 @@ const router = useRouter();
 function getMovieDetails(id) {
     router.push(`/movies/${id}`)
 }
+
+function goToFilter() {
+  router.push(`/filter`)
+}
 </script>
 
 <template>
@@ -14,6 +18,7 @@ function getMovieDetails(id) {
     <h1>Search Movie</h1>
     <div class="search-bar">
       <input>
+      <button @click="goToFilter">Filter</button>
       <button>Search!</button>
     </div>
   </div>
