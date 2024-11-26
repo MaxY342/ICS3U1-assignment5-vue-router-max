@@ -55,49 +55,10 @@ function getMovieDetails(id) {
 </template>
 
 <style scoped>
-  .movie-gallery {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    color: white;
-    background-color: #141414;
-  }
-
   h1 {
     text-align: center;
     margin-bottom: 20px;
     font-size: 2.5rem;
-  }
-
-  .movie-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
-
-  .movie-card {
-    background-color: #222;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.2s;
-    width: 200px;
-  }
-
-  .movie-card:hover, button:hover {
-    transform: scale(1.05);
-  }
-
-  .movie-poster {
-    width: 100%;
-    height: auto;
-  }
-
-  .movie-title {
-    padding: 10px;
-    text-align: center;
-    font-size: 1.1rem;
-    color: white;
   }
 
   button {
