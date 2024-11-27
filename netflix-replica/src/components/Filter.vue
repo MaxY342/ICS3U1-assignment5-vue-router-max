@@ -31,15 +31,6 @@ async function getGenres() {
     tvGenres.value = tvResponse.data.genres;
 }
 
-onMounted(() => {
-  getGenres();
-});
-
-watch(type, () => {
-  genres.value = type.value == 'movie' ? movieGenres.value : tvGenres.value
-  selectedGenres.value = []
-});
-
 async function searchItems(type) {
     if (type == 'movie') {
         const query = {
@@ -72,6 +63,15 @@ async function searchItems(type) {
 function getMovieDetails(id) {
     router.push(`/movies/${id}`);
 }
+
+onMounted(() => {
+  getGenres();
+});
+
+watch(type, () => {
+  genres.value = type.value == 'movie' ? movieGenres.value : tvGenres.value
+  selectedGenres.value = []
+});
 </script>
 
 <template>
@@ -157,8 +157,8 @@ function getMovieDetails(id) {
     .filter-block {
         padding: 100px;
         border-radius: 10px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         gap: 10px;
+        background-color: ;
     }
 
     .filter {
