@@ -7,7 +7,7 @@
         <label>Username/Email</label>
         <input>
         <label>Password</label>
-        <input>
+        <input type="password">
         <button>Sign-up</button>
     </form>
 </template>

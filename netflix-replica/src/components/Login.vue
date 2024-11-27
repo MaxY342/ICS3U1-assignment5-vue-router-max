@@ -19,7 +19,7 @@ const handleLogin = () => {
         <label>Username/Email</label>
         <input>
         <label>Password</label>
-        <input v-model="password">
+        <input v-model="password" type="password">
         <button type="submit">Log-in</button>
     </form>
 </template>
