@@ -7,6 +7,15 @@ import Filter from '../components/Filter.vue'
 <template>
   <main>
     <Topbar />
-    <Filter />
+    <div class="filter-container">
+      <Filter />
+    </div>
   </main>
 </template>
+
+<style scoped>
+  .filter-container {
+    background-color: #2f2f2f;
+    padding-top: 4rem;
+  }
+</style>

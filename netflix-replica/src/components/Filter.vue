@@ -61,7 +61,7 @@ async function searchItems(type) {
 }
 
 function getMovieDetails(id) {
-    router.push(`/movies/${id}`);
+    emit('id', id);
 }
 
 onMounted(() => {
@@ -75,8 +75,8 @@ watch(type, () => {
 </script>
 
 <template>
-    <h1>Filter</h1>
     <div class="filter-block">
+        <h1>Filter</h1>
         <form @submit.prevent="searchItems(type)">
             <div class="filters">
                 <div class="filter">
@@ -134,8 +134,8 @@ watch(type, () => {
                 </div>
                 <div class="checkbox-group">
                     <div v-for="genre in genres" class="checkbox-item">
-                        <input type="checkbox" :value="genre.id" v-model="selectedGenres"/>
-                        <label>{{ genre.name }}</label>
+                            <input type="checkbox" :value="genre.id" v-model="selectedGenres"/>
+                            <label>{{ genre.name }}</label>
                     </div>
                 </div>
             </div>
@@ -154,17 +154,19 @@ watch(type, () => {
 </template>
 
 <style scoped>
-    .filter-block {
+    .filter-block, .filter-results {
+        margin: 50px;
         padding: 100px;
         border-radius: 10px;
         gap: 10px;
-        background-color: ;
+        background-color: #151515;
     }
 
     .filter {
         float: left;
         margin: 0 10px 10px 0;
         border: 1px solid #e20c0c79;
+        background-color: #ff000005;
         border-radius: 6px;
         padding: 3px 10px;
     }
@@ -177,7 +179,22 @@ watch(type, () => {
 
     .genre-select {
         color: white;
+    }
 
+    input[type="checkbox"] {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #e20c0c;
+        border-radius: 5px;
+        background-color: transparent;
+        cursor: pointer;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    input[type="checkbox"]:checked {
+        background-color: #e20c0c;
+        border-color: #c20000;
     }
 
     input {
@@ -189,8 +206,11 @@ watch(type, () => {
     }
     
     h1 {
-       color:white;
-       text-align: center;
+        color:white;
+        text-align: center;
+        margin-top: 0px;
+        margin-bottom: 50px;
+        font-size: 2.5rem;
     }
 
     button {
@@ -244,11 +264,5 @@ watch(type, () => {
 
     label {
         color: white;
-    }
-
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-        font-size: 2.5rem;
     }
 </style>
