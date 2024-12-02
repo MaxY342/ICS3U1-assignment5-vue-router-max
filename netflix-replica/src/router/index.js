@@ -4,6 +4,8 @@ import LoginView from '../views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
 import HomeView from '@/views/HomeView.vue'
 import FilterView from '../views/FilterView.vue'
+import ItemDetailsVeiw from '@/views/ItemDetailsVeiw.vue'
+import SearchResultsVeiw from '@/views/SearchResultsVeiw.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +34,16 @@ const router = createRouter({
       path: '/filter',
       name: 'filter',
       component: FilterView,
+    },
+    {
+      path: '/:type/:id',
+      name: 'id',
+      component: ItemDetailsVeiw,
+    },
+    {
+      path: '/search-results/:query',
+      name: 'searchResults',
+      component: SearchResultsVeiw,
     },
   ],
 })

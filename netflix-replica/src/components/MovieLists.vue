@@ -8,8 +8,8 @@ const trending = await axios.get(`https://api.themoviedb.org/3/trending/all/day?
 const topRated = await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${import.meta.env.VITE_TMDB_KEY}`);
 const upcoming = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}`);
 
-function getMovieDetails(id) {
-    router.push(`/movies/${id}`);
+function getMovieDetails(type, id) {
+    router.push(`/${type}/${id}`);
 }
 </script>
 
@@ -17,7 +17,7 @@ function getMovieDetails(id) {
   <div class="movie-gallery">
     <h1>Now Playing</h1>
     <div class="movie-list">
-      <div v-for="movie in nowPlaying.data.results.slice(0, 5)" :key="movie.id" class="movie-card" @click="getMovieDetails(movie.id)">
+      <div v-for="movie in nowPlaying.data.results.slice(0, 5)" :key="movie.id" class="movie-card" @click="getMovieDetails('movie', movie.id)">
         <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="Movie Poster" class="movie-poster" />
         <p class="movie-title">{{ movie.title }}</p>
       </div>
@@ -26,7 +26,7 @@ function getMovieDetails(id) {
     <hr style="width:100%">
     <h1>Trending</h1>
     <div class="movie-list">
-      <div v-for="item in trending.data.results.slice(0, 5)" :key="item.id" class="movie-card" @click="getMovieDetails(item.id)">
+      <div v-for="item in trending.data.results.slice(0, 5)" :key="item.id" class="movie-card" @click="getMovieDetails(item.media_type, item.id)">
         <img :src="`https://image.tmdb.org/t/p/w500${item.poster_path}`" alt="Movie Poster" class="movie-poster" />
         <p class="movie-title">{{ item.media_type === 'tv' ? item.name : item.title }}</p>
       </div>
@@ -35,7 +35,7 @@ function getMovieDetails(id) {
     <hr style="width:100%">
     <h1>Top Rated</h1>
     <div class="movie-list">
-      <div v-for="movie in topRated.data.results.slice(0, 5)" :key="movie.id" class="movie-card" @click="getMovieDetails(movie.id)">
+      <div v-for="movie in topRated.data.results.slice(0, 5)" :key="movie.id" class="movie-card" @click="getMovieDetails('movie', movie.id)">
         <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="Movie Poster" class="movie-poster" />
         <p class="movie-title">{{ movie.title }}</p>
       </div>
@@ -44,7 +44,7 @@ function getMovieDetails(id) {
     <hr style="width:100%">
     <h1>Upcoming</h1>
     <div class="movie-list">
-      <div v-for="movie in upcoming.data.results.slice(0, 5)" :key="movie.id" class="movie-card" @click="getMovieDetails(movie.id)">
+      <div v-for="movie in upcoming.data.results.slice(0, 5)" :key="movie.id" class="movie-card" @click="getMovieDetails('movie', movie.id)">
         <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="Movie Poster" class="movie-poster" />
         <p class="movie-title">{{ movie.title }}</p>
       </div>
@@ -55,6 +55,12 @@ function getMovieDetails(id) {
 </template>
 
 <style scoped>
+  .movie-gallery {
+    background-color: #151515;
+    border-radius: 10px;
+    padding: 4rem;
+  }
+
   h1 {
     text-align: center;
     margin-bottom: 20px;

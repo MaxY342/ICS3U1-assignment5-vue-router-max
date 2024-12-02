@@ -22,6 +22,7 @@ const sortBy = [
     {name: 'Name(desc)', value: 'name.desc'},
 ];
 const voteCount = ref(100);
+const query = ref({});
 
 async function getGenres() {
     const movieResponse = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${import.meta.env.VITE_TMDB_KEY}`);
@@ -33,7 +34,7 @@ async function getGenres() {
 
 async function searchItems(type) {
     if (type == 'movie') {
-        const query = {
+        query.value = {
             api_key: import.meta.env.VITE_TMDB_KEY,
             with_genres: selectedGenres.value.join(','),
             sort_by: selectedSortBy.value,
@@ -41,12 +42,9 @@ async function searchItems(type) {
             'vote_average.gte': minRating.value,
             'vote_count.gte': voteCount.value,
         };
-
-        const response = await axios.get('https://api.themoviedb.org/3/discover/movie', { params: query });
-        items.value = response.data.results;
     }
     else {
-        const query = {
+        query.value = {
             api_key: import.meta.env.VITE_TMDB_KEY,
             with_genres: selectedGenres.value.join(','),
             sort_by: selectedSortBy.value,
@@ -54,14 +52,13 @@ async function searchItems(type) {
             'vote_average.gte': minRating.value,
             'vote_count.gte': voteCount.value,
         };
-
-        const response = await axios.get('https://api.themoviedb.org/3/discover/tv', { params: query });
-        items.value = response.data.results;
     }
+    const response = await axios.get(`https://api.themoviedb.org/3/discover/${type}`, { params: query.value });
+    items.value = response.data.results;
 }
 
-function getMovieDetails(id) {
-    emit('id', id);
+function getMovieDetails(type, id) {
+    router.push(`/${type}/${id}`);
 }
 
 onMounted(() => {
@@ -86,7 +83,7 @@ watch(type, () => {
                     <select v-model="type">
                         <option value="" disabled selected>Click to Select</option>
                         <option value="movie">Movie</option>
-                        <option value="tv-show">Tv Show</option>
+                        <option value="tv">Tv Show</option>
                     </select>
                 </div>
                 <div class="filter">
@@ -145,7 +142,7 @@ watch(type, () => {
     <div class="filter-results">
         <h1>Filter Results</h1>
         <div class="movie-list">
-            <div v-for="item in items" :key="item.id" class="movie-card" @click="getMovieDetails(item.id)">
+            <div v-for="item in items" :key="item.id" class="movie-card" @click="getMovieDetails(type, item.id)">
                 <img :src="`https://image.tmdb.org/t/p/w500${item.poster_path}`" alt="Movie Poster" class="movie-poster" />
                 <p class="movie-title">{{ type == 'movie' ? item.title : item.name }}</p>
             </div>
@@ -156,6 +153,7 @@ watch(type, () => {
 <style scoped>
     .filter-block, .filter-results {
         margin: 50px;
+        margin-bottom: 0;
         padding: 100px;
         border-radius: 10px;
         gap: 10px;

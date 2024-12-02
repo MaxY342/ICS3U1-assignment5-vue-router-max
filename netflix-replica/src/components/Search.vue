@@ -1,15 +1,16 @@
 <script setup>
-import axios from "axios";
 import { useRouter } from "vue-router";
+import { ref } from "vue";
 
 const router = useRouter();
+const searchQuery = ref("");
 
-function getMovieDetails(id) {
-    router.push(`/movies/${id}`)
+function searchMoviesAndShows(query) {
+  router.push(`search-results/${query}`);
 }
 
 function goToFilter() {
-  router.push(`/filter`)
+  router.push(`/filter`);
 }
 </script>
 
@@ -17,9 +18,9 @@ function goToFilter() {
   <div class="search-section">
     <h1>Search Movie</h1>
     <div class="search-bar">
-      <input>
+      <input v-model="searchQuery" placeholder="Enter movie/tv-show title..." />
       <button @click="goToFilter">Filter</button>
-      <button>Search!</button>
+      <button @click="searchMoviesAndShows(searchQuery)">Search!</button>
     </div>
   </div>
 </template>
@@ -30,6 +31,9 @@ function goToFilter() {
     flex-direction: column;
     align-items: center;
     color: white;
+    padding: 5rem;
+    background-color: #151515;
+    border-radius: 10px;
   }
 
   h1 {
@@ -48,16 +52,16 @@ function goToFilter() {
   input {
     height: 2rem;
     width: 70vw;
+    border-radius: 5px;
+    padding: 0.5rem;
   }
 
   button {
     background-color: #e20c0c;
     padding: 1rem;
-    margin-top: 50px;
     color: white;
     border: 0;
     border-radius: 10px;
-    margin-bottom: 50px;
     transition: transform 0.2s;
   }
 

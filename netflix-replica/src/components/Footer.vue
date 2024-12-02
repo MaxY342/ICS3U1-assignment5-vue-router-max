@@ -13,7 +13,6 @@
 <style scoped>
     .footer {
         position: relative;
-        width: 100%;
         background-color: #111;
         color: white;
         text-align: center;

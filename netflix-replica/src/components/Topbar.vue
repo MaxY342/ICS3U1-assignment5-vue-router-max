@@ -7,11 +7,9 @@
             <div class="sidebar">
                 <button class = sidebarbtn>Menu</button>
                 <div class="sidebar-content">
-                    <RouterLink to="/">Homepage</RouterLink>
-                    <a>Subscription Plans</a>
-                    <a>Trending</a>
-                    <a>Most Popular</a>
-                    <a>New</a>
+                    <RouterLink to="/">Landing Page</RouterLink>
+                    <RouterLink to="/home">Homepage</RouterLink>
+                    <RouterLink to="/filter">Filter</RouterLink>
                 </div>
             </div>
             <h1 class="logo">Metflix</h1>
