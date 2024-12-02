@@ -1,12 +1,21 @@
 <script setup>
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { ref } from "vue";
 
 const router = useRouter();
 const nowPlaying = await axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${import.meta.env.VITE_TMDB_KEY}`);
 const trending = await axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${import.meta.env.VITE_TMDB_KEY}`);
 const topRated = await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${import.meta.env.VITE_TMDB_KEY}`);
 const upcoming = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}`);
+const nowPlayingLimit = ref(5);
+const trendingLimit = ref(5);
+const topRatedLimit = ref(5);
+const upcomingLimit = ref(5);
+
+function expandLimit(limit) {
+  limit.value += 5;
+}
 
 function getMovieDetails(type, id) {
     router.push(`/${type}/${id}`);

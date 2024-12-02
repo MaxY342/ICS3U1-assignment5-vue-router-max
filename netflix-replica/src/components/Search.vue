@@ -51,7 +51,7 @@ function goToFilter() {
 
   input {
     height: 2rem;
-    width: 70vw;
+    width: 60vw;
     border-radius: 5px;
     padding: 0.5rem;
   }
