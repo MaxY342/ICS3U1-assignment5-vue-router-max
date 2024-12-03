@@ -1,12 +1,30 @@
 <script setup>
+import { onMounted, onUnmounted } from 'vue';
+
 function ScrollOpacityEffect(item) {
   let header = document.querySelector(item);
-  let scrollPosition = window.pageYOffset;
+  let scrollPosition = window.scrollY;
   header.style.opacity = 1 - scrollPosition / 400;
 };
 
-window.addEventListener('scroll', function () {
+function handleScroll() {
   ScrollOpacityEffect(".hero");
+}
+
+function enableScrollEffect() {
+  window.addEventListener('scroll', handleScroll);
+}
+
+function detachScrollEffect() {
+  window.removeEventListener('scroll', handleScroll);
+}
+
+onMounted(() => {
+  enableScrollEffect();
+});
+
+onUnmounted(() => {
+  detachScrollEffect();
 });
 </script>
 
