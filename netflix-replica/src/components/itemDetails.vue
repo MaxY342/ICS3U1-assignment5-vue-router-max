@@ -4,16 +4,16 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 const response = await axios.get(`https://api.themoviedb.org/3/${route.params.type}/${route.params.id}?api_key=${import.meta.env.VITE_TMDB_KEY}&append_to_response=videos`);
-console.log(response.data);
 </script>
 
 <template>
-  <div class="movie-detail" v-if="route.params.type=='movie'">
+  <div class="movie-detail" v-if="route.params.type == 'movie'">
     <div class="movie-detail-content">
       <div class="movie-detail-left">
-        <h1 class="movie-title">{{ response.data.original_title}}</h1>
+        <h1 class="movie-title">{{ response.data.original_title }}</h1>
         <h2 class="tagline">{{ response.data.tagline }}</h2>
-        <img :src="`https://image.tmdb.org/t/p/w500${response.data.poster_path}`" alt="Movie Poster" class="movie-poster" />
+        <img :src="`https://image.tmdb.org/t/p/w500${response.data.poster_path}`" alt="Movie Poster"
+          class="movie-poster" />
         <p class="movie-release-date">Release Date: {{ response.data.release_date }}</p>
         <p class="rating">Rating: ⭐{{ response.data.vote_average }}</p>
       </div>
@@ -35,13 +35,15 @@ console.log(response.data);
       </div>
     </div>
   </div>
-  <div class="movie-detail" v-if="route.params.type=='tv'">
+  <div class="movie-detail" v-if="route.params.type == 'tv'">
     <div class="movie-detail-content">
       <div class="movie-detail-left">
-        <h1 class="movie-title">{{ response.data.name}}</h1>
+        <h1 class="movie-title">{{ response.data.name }}</h1>
         <h2 class="tagline">{{ response.data.tagline }}</h2>
-        <img :src="`https://image.tmdb.org/t/p/w500${response.data.poster_path}`" alt="Movie Poster" class="movie-poster" />
-        <p class="movie-release-date">Release Date: {{ `${response.data.first_air_date} - ${response.data.last_air_date}` }}</p>
+        <img :src="`https://image.tmdb.org/t/p/w500${response.data.poster_path}`" alt="Movie Poster"
+          class="movie-poster" />
+        <p class="movie-release-date">Release Date: {{ `${response.data.first_air_date} -
+          ${response.data.last_air_date}` }}</p>
         <p class="seasons">Seasons: {{ response.data.number_of_seasons }}</p>
         <p class="episodes">Episodes: {{ response.data.number_of_episodes }}</p>
         <p class="rating">Rating: ⭐{{ response.data.vote_average }}</p>
@@ -58,7 +60,8 @@ console.log(response.data);
     <div class="trailers-container">
       <div v-for="trailer in response.data.videos.results" :key="trailer.id" class="trailer-tile">
         <a :href="`https://www.youtube.com/watch?v=${trailer.key}`" target="_blank">
-          <img :src="`https://img.youtube.com/vi/${trailer.key}/hqdefault.jpg`" alt="Trailer" class="trailer-thumbnail" />
+          <img :src="`https://img.youtube.com/vi/${trailer.key}/hqdefault.jpg`" alt="Trailer"
+            class="trailer-thumbnail" />
         </a>
       </div>
     </div>
@@ -70,16 +73,16 @@ console.log(response.data);
   display: inline-block;
   margin-bottom: 20px;
   padding: 10px 15px;
-  background-color: #e50914; /* Netflix red */
+  background-color: #e50914;
   color: white;
   text-decoration: none;
   border-radius: 5px;
 }
 
 .movie-site:hover {
-  background-color: #f01212; /* Darker red on hover */
+  background-color: #f01212;
 }
-/* General container styling */
+
 .movie-detail {
   margin: 0 50px;
   padding: 20px;
@@ -90,7 +93,6 @@ console.log(response.data);
   font-family: 'Arial', sans-serif;
 }
 
-/* Main content layout */
 .movie-detail-content {
   display: flex;
   flex-wrap: wrap;
@@ -98,7 +100,6 @@ console.log(response.data);
   margin-bottom: 10rem;
 }
 
-/* Left section (title, poster, and release date) */
 .movie-detail-left {
   display: flex;
   flex-direction: column;
@@ -112,12 +113,15 @@ console.log(response.data);
   margin: 10px 0;
 }
 
-.movie-release-date, .seasons, .episodes, .rating, .tagline {
+.movie-release-date,
+.seasons,
+.episodes,
+.rating,
+.tagline {
   font-weight: bold;
   margin: 10px;
 }
 
-/* Right section (description) */
 .movie-detail-right {
   flex: 2 1 400px;
 }
@@ -128,7 +132,6 @@ console.log(response.data);
   text-align: justify;
 }
 
-/* Trailers section */
 h1 {
   font-size: 2.5rem;
   margin-top: 30px;

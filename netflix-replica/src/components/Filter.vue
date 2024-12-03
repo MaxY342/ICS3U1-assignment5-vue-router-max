@@ -14,51 +14,51 @@ const tvGenres = ref([]);
 const genres = ref([]);
 const selectedSortBy = ref('');
 const sortBy = [
-    {name: 'Popularity(asc)', value: 'popularity.asc'},
-    {name: 'Popularity(desc)', value: 'popularity.desc'},
-    {name: 'Score(asc)', value: 'vote_average.asc'},
-    {name: 'Score(desc)', value: 'vote_average.desc'},
-    {name: 'Name(asc)', value: 'name.asc'},
-    {name: 'Name(desc)', value: 'name.desc'},
+  { name: 'Popularity(asc)', value: 'popularity.asc' },
+  { name: 'Popularity(desc)', value: 'popularity.desc' },
+  { name: 'Score(asc)', value: 'vote_average.asc' },
+  { name: 'Score(desc)', value: 'vote_average.desc' },
+  { name: 'Name(asc)', value: 'name.asc' },
+  { name: 'Name(desc)', value: 'name.desc' },
 ];
 const voteCount = ref(100);
 const query = ref({});
 
 async function getGenres() {
-    const movieResponse = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${import.meta.env.VITE_TMDB_KEY}`);
-    movieGenres.value = movieResponse.data.genres;
+  const movieResponse = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${import.meta.env.VITE_TMDB_KEY}`);
+  movieGenres.value = movieResponse.data.genres;
 
-    const tvResponse = await axios.get(`https://api.themoviedb.org/3/genre/tv/list?api_key=${import.meta.env.VITE_TMDB_KEY}`);
-    tvGenres.value = tvResponse.data.genres;
+  const tvResponse = await axios.get(`https://api.themoviedb.org/3/genre/tv/list?api_key=${import.meta.env.VITE_TMDB_KEY}`);
+  tvGenres.value = tvResponse.data.genres;
 }
 
 async function searchItems(type) {
-    if (type == 'movie') {
-        query.value = {
-            api_key: import.meta.env.VITE_TMDB_KEY,
-            with_genres: selectedGenres.value.join(','),
-            sort_by: selectedSortBy.value,
-            primary_release_year: selectedYear.value,
-            'vote_average.gte': minRating.value,
-            'vote_count.gte': voteCount.value,
-        };
-    }
-    else {
-        query.value = {
-            api_key: import.meta.env.VITE_TMDB_KEY,
-            with_genres: selectedGenres.value.join(','),
-            sort_by: selectedSortBy.value,
-            first_air_date_year: selectedYear.value,
-            'vote_average.gte': minRating.value,
-            'vote_count.gte': voteCount.value,
-        };
-    }
-    const response = await axios.get(`https://api.themoviedb.org/3/discover/${type}`, { params: query.value });
-    items.value = response.data.results;
+  if (type == 'movie') {
+    query.value = {
+      api_key: import.meta.env.VITE_TMDB_KEY,
+      with_genres: selectedGenres.value.join(','),
+      sort_by: selectedSortBy.value,
+      primary_release_year: selectedYear.value,
+      'vote_average.gte': minRating.value,
+      'vote_count.gte': voteCount.value,
+    };
+  }
+  else {
+    query.value = {
+      api_key: import.meta.env.VITE_TMDB_KEY,
+      with_genres: selectedGenres.value.join(','),
+      sort_by: selectedSortBy.value,
+      first_air_date_year: selectedYear.value,
+      'vote_average.gte': minRating.value,
+      'vote_count.gte': voteCount.value,
+    };
+  }
+  const response = await axios.get(`https://api.themoviedb.org/3/discover/${type}`, { params: query.value });
+  items.value = response.data.results;
 }
 
 function getMovieDetails(type, id) {
-    router.push(`/${type}/${id}`);
+  router.push(`/${type}/${id}`);
 }
 
 onMounted(() => {
@@ -72,195 +72,196 @@ watch(type, () => {
 </script>
 
 <template>
-    <div class="filter-block">
-        <h1>Filter</h1>
-        <form @submit.prevent="searchItems(type)">
-            <div class="filters">
-                <div class="filter">
-                    <div class="filter-name">
-                        Type
-                    </div>
-                    <select v-model="type">
-                        <option value="" disabled selected>Click to Select</option>
-                        <option value="movie">Movie</option>
-                        <option value="tv">Tv Show</option>
-                    </select>
-                </div>
-                <div class="filter">
-                    <div class="filter-name">
-                        Sort By
-                    </div>
-                    <select v-model="selectedSortBy">
-                        <option value="" disabled selected>Click to Select</option>
-                        <option v-for="option in sortBy" :value="option.value">{{ option.name }}</option>
-                    </select>
-                </div>
-                <div class="filter">
-                    <div class="filter-name">
-                        Minimum Score
-                    </div>
-                    <select v-model.number="minRating">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                    </select>
-                </div>
-                <div class="filter">
-                    <div class="filter-name">
-                        Year
-                    </div>
-                    <input v-model="selectedYear" type="number">
-                </div>
-                <div class="filter">
-                    <div class="filter-name">
-                        Minimum vote count
-                    </div>
-                    <input v-model="voteCount" type="number">
-                </div>
-            </div>
-            <div class="filter genre-select">
-                <div class="filter-name">
-                    Genre
-                </div>
-                <div class="checkbox-group">
-                    <div v-for="genre in genres" class="checkbox-item">
-                            <input type="checkbox" :value="genre.id" v-model="selectedGenres"/>
-                            <label>{{ genre.name }}</label>
-                    </div>
-                </div>
-            </div>
-            <button type="submit">Filter</button>
-        </form>
-    </div>
-    <div class="filter-results">
-        <h1>Filter Results</h1>
-        <div class="movie-list">
-            <div v-for="item in items" :key="item.id" class="movie-card" @click="getMovieDetails(type, item.id)">
-                <img :src="`https://image.tmdb.org/t/p/w500${item.poster_path}`" alt="Movie Poster" class="movie-poster" />
-                <p class="movie-title">{{ type == 'movie' ? item.title : item.name }}</p>
-            </div>
+  <div class="filter-block">
+    <h1>Filter</h1>
+    <form @submit.prevent="searchItems(type)">
+      <div class="filters">
+        <div class="filter">
+          <div class="filter-name">
+            Type
+          </div>
+          <select v-model="type">
+            <option value="" disabled selected>Click to Select</option>
+            <option value="movie">Movie</option>
+            <option value="tv">Tv Show</option>
+          </select>
         </div>
+        <div class="filter">
+          <div class="filter-name">
+            Sort By
+          </div>
+          <select v-model="selectedSortBy">
+            <option value="" disabled selected>Click to Select</option>
+            <option v-for="option in sortBy" :value="option.value">{{ option.name }}</option>
+          </select>
+        </div>
+        <div class="filter">
+          <div class="filter-name">
+            Minimum Score
+          </div>
+          <select v-model.number="minRating">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
+        </div>
+        <div class="filter">
+          <div class="filter-name">
+            Year
+          </div>
+          <input v-model="selectedYear" type="number">
+        </div>
+        <div class="filter">
+          <div class="filter-name">
+            Minimum vote count
+          </div>
+          <input v-model="voteCount" type="number">
+        </div>
+      </div>
+      <div class="filter genre-select">
+        <div class="filter-name">
+          Genre
+        </div>
+        <div class="checkbox-group">
+          <div v-for="genre in genres" class="checkbox-item">
+            <input type="checkbox" :value="genre.id" v-model="selectedGenres" />
+            <label>{{ genre.name }}</label>
+          </div>
+        </div>
+      </div>
+      <button type="submit">Filter</button>
+    </form>
+  </div>
+  <div class="filter-results">
+    <h1>Filter Results</h1>
+    <div class="movie-list">
+      <div v-for="item in items" :key="item.id" class="movie-card" @click="getMovieDetails(type, item.id)">
+        <img :src="`https://image.tmdb.org/t/p/w500${item.poster_path}`" alt="Movie Poster" class="movie-poster" />
+        <p class="movie-title">{{ type == 'movie' ? item.title : item.name }}</p>
+      </div>
     </div>
+  </div>
 </template>
 
 <style scoped>
-    .filter-block, .filter-results {
-        margin: 50px;
-        margin-bottom: 0;
-        padding: 100px;
-        border-radius: 10px;
-        gap: 10px;
-        background-color: #151515;
-    }
+.filter-block,
+.filter-results {
+  margin: 50px;
+  margin-bottom: 0;
+  padding: 100px;
+  border-radius: 10px;
+  gap: 10px;
+  background-color: #151515;
+}
 
-    .filter {
-        float: left;
-        margin: 0 10px 10px 0;
-        border: 1px solid #e20c0c79;
-        background-color: #ff000005;
-        border-radius: 6px;
-        padding: 3px 10px;
-    }
+.filter {
+  float: left;
+  margin: 0 10px 10px 0;
+  border: 1px solid #e20c0c79;
+  background-color: #ff000005;
+  border-radius: 6px;
+  padding: 3px 10px;
+}
 
-    .filter-name {
-        font-weight: 500;
-        margin-right: 5px;
-        float: left;
-    }
+.filter-name {
+  font-weight: 500;
+  margin-right: 5px;
+  float: left;
+}
 
-    .genre-select {
-        color: white;
-    }
+.genre-select {
+  color: white;
+}
 
-    input[type="checkbox"] {
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        border: 1px solid #e20c0c;
-        border-radius: 5px;
-        background-color: transparent;
-        cursor: pointer;
-        transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
+input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #e20c0c;
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
 
-    input[type="checkbox"]:checked {
-        background-color: #e20c0c;
-        border-color: #c20000;
-    }
+input[type="checkbox"]:checked {
+  background-color: #e20c0c;
+  border-color: #c20000;
+}
 
-    input {
-        height: 1rem;
-        width: 50px;
-        border-radius: 5px;
-        border:none;
-        color: #e20c0c;
-    }
-    
-    h1 {
-        color:white;
-        text-align: center;
-        margin-top: 0px;
-        margin-bottom: 50px;
-        font-size: 2.5rem;
-    }
+input {
+  height: 1rem;
+  width: 50px;
+  border-radius: 5px;
+  border: none;
+  color: #e20c0c;
+}
 
-    button {
-        margin-top: 50px;
-        background-color: #e20c0c;
-        padding: 1rem;
-        color: white;
-        border: 0;
-        border-radius: 10px;
-    }
+h1 {
+  color: white;
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 50px;
+  font-size: 2.5rem;
+}
 
-    button:hover {
-        background-color: #c20000;
-        cursor: pointer;
-    }
+button {
+  margin-top: 50px;
+  background-color: #e20c0c;
+  padding: 1rem;
+  color: white;
+  border: 0;
+  border-radius: 10px;
+}
 
-    select {
-        background-color: #151515;
-        color: #e20c0c;
-        cursor: pointer;
-        border: none;
-        padding: 0 5px;
-        appearance: none;
-    }
+button:hover {
+  background-color: #c20000;
+  cursor: pointer;
+}
 
-    select:focus {
-        outline: none;
-        border: none;
-    }
+select {
+  background-color: #151515;
+  color: #e20c0c;
+  cursor: pointer;
+  border: none;
+  padding: 0 5px;
+  appearance: none;
+}
 
-    .filters {
-        color: white;
-        display: grid;
-        grid-template-columns: auto auto auto;
-    }
+select:focus {
+  outline: none;
+  border: none;
+}
 
-    .checkbox-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
+.filters {
+  color: white;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
 
-    .checkbox-item {
-        display: flex;
-        align-items: center;
-    }
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
-    input[type="checkbox"] {
-        margin-right: 5px;
-    }
+.checkbox-item {
+  display: flex;
+  align-items: center;
+}
 
-    label {
-        color: white;
-    }
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+label {
+  color: white;
+}
 </style>

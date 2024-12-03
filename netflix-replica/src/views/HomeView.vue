@@ -18,11 +18,11 @@ import Footer from '../components/Footer.vue'
 </template>
 
 <style scoped>
-  .body {
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
-    background-color: #2f2f2f;
-    padding: 4rem;
-  }
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  background-color: #2f2f2f;
+  padding: 4rem;
+}
 </style>

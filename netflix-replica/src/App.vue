@@ -8,6 +8,4 @@ import { RouterLink, RouterView } from 'vue-router'
   </Suspense>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

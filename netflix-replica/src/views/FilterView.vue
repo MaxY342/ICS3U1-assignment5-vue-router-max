@@ -16,8 +16,8 @@ import Footer from '../components/Footer.vue'
 </template>
 
 <style scoped>
-  .filter-container {
-    background-color: #2f2f2f;
-    padding: 4rem 0;
-  }
+.filter-container {
+  background-color: #2f2f2f;
+  padding: 4rem 0;
+}
 </style>

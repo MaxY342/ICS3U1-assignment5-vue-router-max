@@ -13,20 +13,20 @@ import Topbar from '../components/Topbar.vue';
 </template>
 
 <style scoped>
-  main {
-    display: grid;
-    grid-template-rows: auto 1fr;
-    min-height: 100vh;
-  }
+main {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+}
 
-  .signup-container {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    background-color: #2f2f2f;
-  }
+.signup-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  background-color: #2f2f2f;
+}
 
-  .signup {
-    background-color: #151515;
-  }
+.signup {
+  background-color: #151515;
+}
 </style>

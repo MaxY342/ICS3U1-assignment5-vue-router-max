@@ -15,9 +15,9 @@ import Footer from '@/components/Footer.vue';
 </template>
 
 <style scoped>
-  .itemDetails {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-    background-color: #2f2f2f;
-  }
+.itemDetails {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  background-color: #2f2f2f;
+}
 </style>

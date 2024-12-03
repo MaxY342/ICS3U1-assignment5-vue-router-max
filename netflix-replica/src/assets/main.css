@@ -30,7 +30,8 @@ body {
   width: 170px;
 }
 
-.movie-card:hover, button:hover {
+.movie-card:hover,
+button:hover {
   transform: scale(1.05);
 }
 

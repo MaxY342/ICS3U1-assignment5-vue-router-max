@@ -26,47 +26,47 @@ function goToFilter() {
 </template>
 
 <style scoped>
-  .search-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: white;
-    padding: 5rem;
-    background-color: #151515;
-    border-radius: 10px;
-  }
+.search-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  padding: 5rem;
+  background-color: #151515;
+  border-radius: 10px;
+}
 
-  h1 {
-    margin-bottom: 20px;
-    font-size: 2.5rem;
-  }
+h1 {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+}
 
-  .search-bar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-  }
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
 
-  input {
-    height: 2rem;
-    width: 60vw;
-    border-radius: 5px;
-    padding: 0.5rem;
-  }
+input {
+  height: 2rem;
+  width: 60vw;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
 
-  button {
-    background-color: #e20c0c;
-    padding: 1rem;
-    color: white;
-    border: 0;
-    border-radius: 10px;
-    transition: transform 0.2s;
-  }
+button {
+  background-color: #e20c0c;
+  padding: 1rem;
+  color: white;
+  border: 0;
+  border-radius: 10px;
+  transition: transform 0.2s;
+}
 
-  button:hover {
-    background-color: #c20000;
-    cursor: pointer;
-  }
+button:hover {
+  background-color: #c20000;
+  cursor: pointer;
+}
 </style>
