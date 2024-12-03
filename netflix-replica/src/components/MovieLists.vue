@@ -8,13 +8,17 @@ const nowPlaying = await axios.get(`https://api.themoviedb.org/3/movie/now_playi
 const trending = await axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${import.meta.env.VITE_TMDB_KEY}`);
 const topRated = await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${import.meta.env.VITE_TMDB_KEY}`);
 const upcoming = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}`);
+const nowPlayingIsExpanded = ref(false);
+const trendingIsExpanded = ref(false);
+const topRatedIsExpanded = ref(false);
+const upcomingIsExpanded = ref(false);
 const nowPlayingLimit = ref(5);
 const trendingLimit = ref(5);
 const topRatedLimit = ref(5);
 const upcomingLimit = ref(5);
 
-function expandLimit(limit) {
-  limit.value += 5;
+function toggleLimit(list, isExpanded) {
+  return isExpanded ? 5 : list.length;
 }
 
 function getMovieDetails(type, id) {
@@ -26,39 +30,39 @@ function getMovieDetails(type, id) {
   <div class="movie-gallery">
     <h1>Now Playing</h1>
     <div class="movie-list">
-      <div v-for="movie in nowPlaying.data.results.slice(0, 5)" :key="movie.id" class="movie-card" @click="getMovieDetails('movie', movie.id)">
+      <div v-for="movie in nowPlaying.data.results.slice(0, nowPlayingLimit)" :key="movie.id" class="movie-card" @click="getMovieDetails('movie', movie.id)">
         <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="Movie Poster" class="movie-poster" />
         <p class="movie-title">{{ movie.title }}</p>
       </div>
     </div>
-    <button>Veiw More</button>
+    <button @click="nowPlayingLimit = toggleLimit(nowPlaying.data.results, nowPlayingIsExpanded), nowPlayingIsExpanded = !nowPlayingIsExpanded">{{ nowPlayingIsExpanded ? "View Less" : "View More" }}</button>
     <hr style="width:100%">
     <h1>Trending</h1>
     <div class="movie-list">
-      <div v-for="item in trending.data.results.slice(0, 5)" :key="item.id" class="movie-card" @click="getMovieDetails(item.media_type, item.id)">
+      <div v-for="item in trending.data.results.slice(0, trendingLimit)" :key="item.id" class="movie-card" @click="getMovieDetails(item.media_type, item.id)">
         <img :src="`https://image.tmdb.org/t/p/w500${item.poster_path}`" alt="Movie Poster" class="movie-poster" />
         <p class="movie-title">{{ item.media_type === 'tv' ? item.name : item.title }}</p>
       </div>
     </div>
-    <button>Veiw More</button>
+    <button @click="trendingLimit = toggleLimit(trending.data.results, trendingIsExpanded), trendingIsExpanded = !trendingIsExpanded">{{ trendingIsExpanded ? "View Less" : "View More" }}</button>
     <hr style="width:100%">
     <h1>Top Rated</h1>
     <div class="movie-list">
-      <div v-for="movie in topRated.data.results.slice(0, 5)" :key="movie.id" class="movie-card" @click="getMovieDetails('movie', movie.id)">
+      <div v-for="movie in topRated.data.results.slice(0, topRatedLimit)" :key="movie.id" class="movie-card" @click="getMovieDetails('movie', movie.id)">
         <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="Movie Poster" class="movie-poster" />
         <p class="movie-title">{{ movie.title }}</p>
       </div>
     </div>
-    <button>Veiw More</button>
+    <button @click="topRatedLimit = toggleLimit(topRated.data.results, topRatedIsExpanded), topRatedIsExpanded = !topRatedIsExpanded">{{ topRatedIsExpanded ? "View Less" : "View More" }}</button>
     <hr style="width:100%">
     <h1>Upcoming</h1>
     <div class="movie-list">
-      <div v-for="movie in upcoming.data.results.slice(0, 5)" :key="movie.id" class="movie-card" @click="getMovieDetails('movie', movie.id)">
+      <div v-for="movie in upcoming.data.results.slice(0, upcomingLimit)" :key="movie.id" class="movie-card" @click="getMovieDetails('movie', movie.id)">
         <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="Movie Poster" class="movie-poster" />
         <p class="movie-title">{{ movie.title }}</p>
       </div>
     </div>
-    <button>Veiw More</button>
+    <button @click="upcomingLimit = toggleLimit(upcoming.data.results, upcomingIsExpanded), upcomingIsExpanded = !upcomingIsExpanded">{{ upcomingIsExpanded ? "View Less" : "View More" }}</button>
 
   </div>
 </template>
