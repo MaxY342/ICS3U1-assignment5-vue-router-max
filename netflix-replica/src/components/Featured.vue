@@ -4,7 +4,6 @@ import axios from "axios";
 const trending = await axios.get(`https://api.themoviedb.org/3/trending/all/week?api_key=${import.meta.env.VITE_TMDB_KEY}`);
 
 function shuffleArray(arr) {
-
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];

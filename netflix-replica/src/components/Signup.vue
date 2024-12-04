@@ -8,6 +8,8 @@
     <input>
     <label>Password</label>
     <input type="password">
+    <label>Confirm Password</label>
+    <input type="password">
     <button>Sign-up</button>
   </form>
 </template>
